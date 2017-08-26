@@ -1,0 +1,17 @@
+le 29 mai 2017
+
+jpmv:~/workspace $ node -v
+v4.7.3
+jpmv:~/workspace $ npm -v
+2.15.11
+jpmv:~/workspace $ npm install geotiff
+npm WARN package.json chat-example@0.0.0 No repository field.
+npm WARN package.json chat-example@0.0.0 No license field.
+npm WARN optional dep failed, continuing fsevents@1.1.1
+geotiff@0.4.1 node_modules/geotiff
+├── xmldom@0.1.27
+├── pako@1.0.5
+├── grunt-cli@1.2.0 (grunt-known-options@1.1.0, nopt@3.0.6, resolve@1.1.7, findup-sync@0.3.0)
+└── babel-cli@6.24.1 (slash@1.0.0, fs-readdir-recursive@1.0.0, path-is-absolute@1.0.1, convert-source-map@1.5.0, v8flags@2.1.1, commander@2.9.0, source-map@0.5.6, glob@7.1.2, output-file-sync@1.1.2, babel-core@6.24.1, chokidar@1.7.0, lodash@4.17.4, babel-register@6.24.1, babel-polyfill@6.23.0, babel-runtime@6.23.0)
+
+pour installer xlmdom: npm install xmldom

@@ -1,0 +1,4 @@
+#!/bin/bash
+coverageID="SPECIFIC_CLOUD_ICE_WATER_CONTENT__SPECIFIC_HEIGHT_LEVEL_ABOVE_GROUND___2017-08-24T09.00.00Z"
+
+bash getLesPathsDesAxes.sh $coverageID
