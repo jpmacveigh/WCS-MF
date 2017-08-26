@@ -19,7 +19,7 @@ sed  "s/<wcs:CoverageId>/""/g" toto > tata
 sed  "s/<\/wcs:CoverageId>/""/g" tata > titi
 sed  "s/^[ \t]*//g" titi > WCScapabilities   # la liste des coverageID a été fabriquée
 rm toto tata titi
-head -n 2540 WCScapabilities | tail -n 1 | while read line  # boucle sur les n premières lignes du fichier contenat les coveragesID
+head -n 3100 WCScapabilities | tail -n 1 | while read line  # boucle sur les n premières lignes du fichier contenat les coveragesID
 do
 ./getCoverage.sh $line $resol ## download du coverage par une requête getCoverage au WCS
 done
