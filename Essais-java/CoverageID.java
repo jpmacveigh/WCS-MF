@@ -1,67 +1,33 @@
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import java.util.HashMap;
 import java.util.Set;
+import java.lang.Long;
 class CoverageID {
-    private String coverageID;
+    private CoverageIDLabel coverageIDLabel;
     private String resolution;  // "0025" ou "001"
     private String describedCoverage;
     private HashMap <String,String[]> lesCoordonnees=new HashMap<String,String[]>();
     private ArrayList<String> lesPathsPourGetCoverage =new ArrayList<String>();
-    public CoverageID(String coverageID,String resolution) throws Exception{
-        this.coverageID=coverageID;
+    public CoverageID(CoverageIDLabel coverageIDLabel,String resolution) throws Exception{
+        this.coverageIDLabel=coverageIDLabel;
         this.resolution=resolution;
         this.describedCoverage=this.getDescribedCoverage();
         this.construireLesAxes();
     }
-    public void affiche(){
-        System.out.println("je suis le CoverageID : "+ this.coverageID);
-    }
-    public String getStringDate(){
-        int index=this.coverageID.indexOf("___");
-        String rep=this.coverageID.substring(index+3,index+23);
-        rep=rep.replace(".",":");
-        return rep;
-    }
-    public Date getDate() throws Exception {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-        Date rep = sdf.parse(this.getStringDate());
-        return rep;
-    }
-    public long getTSInMiliDate() throws Exception {
-        return (this.getDate().getTime());
-    }
-    public boolean isFutur() throws Exception {
-        long now=new Date().getTime();
-        if (now <= this.getTSInMiliDate()) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-    public String getName(){
-        int index=this.coverageID.indexOf("___");
-        return (this.coverageID.substring(0,index));
-    }
-    public String getSuffixe(){
-        int index=this.coverageID.indexOf("___");
-        return (this.coverageID.substring(index+23,coverageID.length()));
-    }
-    public String getDescribeCoveragePath(){
+    
+    public String getDescribeCoveragePath(){  // calcul le path pour une requette describeCoverage pour ce CoverageID
         String model="MF-NWP-HIGHRES-AROME-"+this.resolution+"-FRANCE-WCS";
-        String path="https://geoservices.meteofrance.fr/services/"+model+"?SERVICE=WCS&version=2.0.1&REQUEST=DescribeCoverage&CoverageId=";
-        path=path+this.coverageID+"&token=__BvvAzSbJXLEdUJ--rRU0E1F8qi6cSxDp5x5AtPfCcuU__"; 
+        String path="https://geoservices.meteofrance.fr/services/"+model+"?SERVICE=WCS&version=2.0.1&REQUEST=DescribeCoverage&coverageID=";
+        path=path+this.coverageIDLabel.getCoverageIDLabel()+"&token=__BvvAzSbJXLEdUJ--rRU0E1F8qi6cSxDp5x5AtPfCcuU__"; 
         return (path); 
     }
-    private String getDescribedCoverage() throws Exception {
+    private String getDescribedCoverage() throws Exception {  // emet une requette describeCoverage au WCS de MF pour ce CoverageID
         String xml = GetUrl.get(this.getDescribeCoveragePath());
         return (xml);
     }
-     private void construireLesAxes() throws Exception {
+    private void construireLesAxes() throws Exception {  // analyse le describedCoverage reçu
         String xml=this.describedCoverage;
         String tagAxes="<gml:axisLabels>";
         String tagFinAxes="</gml:axisLabels>";
@@ -95,8 +61,15 @@ class CoverageID {
 			trouv=trouv.replace(tagFinCoeff,"");
 			String[] lesCoeff = trouv.split(" ");
 			System.out.println(lesCoeff.length);
-			for (String coeff:lesCoeff){
-	            System.out.println(coeff);
+			for (int i=0;i<=lesCoeff.length-1;i++){
+	            String coeff=lesCoeff[i];
+	            System.out.println(coeff); 
+	            if (lesAxes.get(rang).equals("time")) { // pour l'axe "time", calculer la date de la prevision
+	               long echeance= Long.parseLong(coeff);
+	               coeff=this.coverageIDLabel.getDateDeLaPrevision(echeance);
+	            }
+	            String subset="&subset="+lesAxes.get(rang)+"("+coeff+")";
+	            lesCoeff[i]=subset;
 			}
 			this.lesCoordonnees.put(lesAxes.get(rang),lesCoeff);  // les coefficients indicés par les nom de l'axe
 			rang=rang+1;
@@ -105,9 +78,27 @@ class CoverageID {
     public HashMap<String,String[]> getLesCoordonnees(){
         return this.lesCoordonnees;
     }
-    public ArrayList<String> getLesPaths(){
+    public ArrayList<String> getLesGetCoveragePaths(){ // cacul la liste des getCoveragePaths possible pour ce CoverageID
+        /*
+        if [ $nombreAxes -eq 1 ]
+        then
+            while read leCoeff
+            do
+                echo $leCoeff >> lesPaths
+            done < ${nomsAxes[0]}
+        else
+            while read leCoeff1
+            do
+                while read leCoeff2
+                do
+                    echo $leCoeff1$leCoeff2 >> lesPaths
+                done < ${nomsAxes[1]}
+            done < ${nomsAxes[0]}
+        fi
+        */   
         ArrayList<String> rep = new ArrayList<String>();
-        int nbAxes=this.lesCoordonnees.size();
+        int nbAxes=this.lesCoordonnees.size();  // nombre d'axes : 1 ou 2 pour MF : time et une height ou un pressure)
+        System.out.println("nb d'axes : "+nbAxes);
         Set<String> lesNomsDesAxes=this.lesCoordonnees.keySet();
         return rep;  // A terminer
     }
