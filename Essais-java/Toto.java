@@ -2,8 +2,9 @@ import java.util.HashMap;
 import java.util.ArrayList;
 class Toto {
     public static void main (String[] arg)throws Exception {
-        String coverageIDLabel = "V_COMPONENT_OF_WIND__POTENTIAL_VORTICITY_SURFACE_2000___2017-08-25T12.00.00Z";
+        //String coverageIDLabel = "V_COMPONENT_OF_WIND__POTENTIAL_VORTICITY_SURFACE_2000___2017-08-25T12.00.00Z";
         //String coverageIDLabel="POTENTIAL_VORTICITY__ISOBARIC_SURFACE___2017-08-26T00.00.00Z";
+        String coverageIDLabel="MINIMUM_TEMPERATURE__SPECIFIC_HEIGHT_LEVEL_ABOVE_GROUND___2017-08-29T06.00.00Z";
         CoverageIDLabel label= new CoverageIDLabel(coverageIDLabel);
         label.affiche();
         System.out.println("mon nom : "+label.getName());
@@ -24,9 +25,10 @@ class Toto {
                 System.out.println(coef);    
             }
         }
-        ArrayList<String> lesPaths=cov.getLesGetCoveragePaths();
-        for (String path : lesPaths){
-            System.out.println(path);
+        ArrayList<GetCoveragePath> lesPaths=cov.getLesGetCoveragePaths(50.,51.,3.,4.);
+        for (GetCoveragePath path : lesPaths){
+            System.out.println(path.getCoveragePath());
+            System.out.println(path.estUnePrevision());
         }
         System.out.println("nb de paths calculés : "+lesPaths.size());
     }

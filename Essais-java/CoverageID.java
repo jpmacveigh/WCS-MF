@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.Iterator;
 import java.lang.Long;
+import java.text.DecimalFormat;
 class CoverageID {
     private CoverageIDLabel coverageIDLabel;
     private String resolution;  // "0025" ou "001"
@@ -80,14 +81,33 @@ class CoverageID {
     public HashMap<String,String[]> getLesCoordonnees(){
         return this.lesCoordonnees;
     }
-    public ArrayList<String> getLesGetCoveragePaths(){ // cacul la liste des getCoveragePaths possible pour ce CoverageID
+    public ArrayList<GetCoveragePath> getLesGetCoveragePaths(double latiNord,double latiSud,double longiOuest,double longiEst){ // cacul la liste des getCoveragePaths possible pour ce CoverageID
         ArrayList<String> rep = new ArrayList<String>();
         int nbAxes=this.lesCoordonnees.size();  // nombre d'axes : 1 ou 2 pour MF : time et une height ou un pressure)
         System.out.println("nb d'axes : "+nbAxes);
         Set<String> lesNomsDesAxes=this.lesCoordonnees.keySet();
         Iterator iter=lesNomsDesAxes.iterator();
         rep=new ArrayList(Arrays.asList(this.lesCoordonnees.get(iter.next())));
-        return(this.boucle(rep,iter));
+        rep=(this.boucle(rep,iter));
+        // https://geoservices.meteofrance.fr/api/__BvvAzSbJXLEdUJ--rRU0E1F8qi6cSxDp5x5AtPfCcuU__
+        // /MF-NWP-HIGHRES-AROME-0025-FRANCE-WCS?SERVICE=WCS&VERSION=2.0.1&REQUEST=GetCoverage
+        // &format=image/tiff&coverageId=GEOPOTENTIAL__ISOBARIC_SURFACE___2017-08-29T06.00.00Z
+        // &subset=lat(50.0,51.0)&subset=long(3.0,4.0)&subset=pressure(100)&subset=time(2017-08-29T15:00:00Z)
+        DecimalFormat nf = new DecimalFormat() ;
+        nf.setMaximumFractionDigits(3); // la tu auras au plus 3 chiffres apres la virgule
+        String latitude  = "&subset=lat("+nf.format(latiNord)+","+nf.format(latiSud)+")";
+        String longitude = "&subset=long("+nf.format(longiOuest)+","+nf.format(longiEst)+")";
+        String domaineGeo=latitude+longitude;
+        String path="https://geoservices.meteofrance.fr/api/__BvvAzSbJXLEdUJ--rRU0E1F8qi6cSxDp5x5AtPfCcuU__/MF-NWP-HIGHRES-AROME-";
+        path=path+resolution+"-FRANCE-WCS?SERVICE=WCS&VERSION=2.0.1&REQUEST=GetCoverage&format=image/tiff&coverageId=";
+        path=path+this.coverageIDLabel.getCoverageIDLabel();
+        path=path+domaineGeo;
+        ArrayList<GetCoveragePath> lesPaths = new ArrayList<GetCoveragePath>();
+        for (String fin : rep){
+           lesPaths.add(new GetCoveragePath(path+fin)); 
+        }
+        return lesPaths;
+        
     }
     private ArrayList<String> boucle (ArrayList<String> list,Iterator iter){  // boucle récursive sur les axes
             if (!iter.hasNext()) return (list);

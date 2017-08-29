@@ -1,0 +1,40 @@
+import java.text.SimpleDateFormat;
+import java.text.FieldPosition;
+import java.util.Date;
+class GetCoveragePath{
+    private String getCoveragePath;
+    public GetCoveragePath (String getCoveragePath) {
+        this.getCoveragePath=getCoveragePath;
+    }public void affiche(){
+        System.out.println("je suis le getCoveragePath : "+ this.getCoveragePath);
+    }
+    public String getCoveragePath(){
+        return this.getCoveragePath;
+    }
+    public String getStringDateDePrevision(){
+        int index=this.getCoveragePath.indexOf("time(");
+        String rep=this.getCoveragePath.substring(index+5,index+25);
+        return rep;
+    }
+    public Date getDateDeLaPrevision() throws Exception {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        Date rep = sdf.parse(this.getStringDateDePrevision());
+        return rep;
+    }
+    public long getTSInMiliDateDeLaPrevision() throws Exception {
+        return (this.getDateDeLaPrevision().getTime());
+    }
+    public double getDelaiDeLaPrevision() throws Exception {  // calcul l'age en heure
+       long now=new Date().getTime();
+       double delai=(this.getTSInMiliDateDeLaPrevision()-now)/1000./3600.;
+       return (delai);
+    }
+    public boolean estUnePrevision() throws Exception {
+        if (this.getDelaiDeLaPrevision() >0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+}
