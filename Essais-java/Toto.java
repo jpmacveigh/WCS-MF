@@ -1,8 +1,9 @@
 import java.util.HashMap;
+import java.util.ArrayList;
 class Toto {
     public static void main (String[] arg)throws Exception {
-        //String coverageIDLabel = "V_COMPONENT_OF_WIND__POTENTIAL_VORTICITY_SURFACE_2000___2017-08-25T12.00.00Z";
-        String coverageIDLabel="POTENTIAL_VORTICITY__ISOBARIC_SURFACE___2017-08-26T00.00.00Z";
+        String coverageIDLabel = "V_COMPONENT_OF_WIND__POTENTIAL_VORTICITY_SURFACE_2000___2017-08-25T12.00.00Z";
+        //String coverageIDLabel="POTENTIAL_VORTICITY__ISOBARIC_SURFACE___2017-08-26T00.00.00Z";
         CoverageIDLabel label= new CoverageIDLabel(coverageIDLabel);
         label.affiche();
         System.out.println("mon nom : "+label.getName());
@@ -12,7 +13,6 @@ class Toto {
         System.out.println("mon age (heures) : "+label.getAge());
         System.out.println("suis-je futur ? "+label.isFutur());
         long echeance=36000;
-        label.getDateDeLaPrevision(echeance);
         System.out.println("echeance (sec) : "+echeance+" date prevision : "+label.getDateDeLaPrevision(echeance));
         CoverageID cov=new CoverageID(label,"0025");
         System.out.println(cov.getDescribeCoveragePath());
@@ -24,6 +24,10 @@ class Toto {
                 System.out.println(coef);    
             }
         }
-        cov.getLesGetCoveragePaths();
+        ArrayList<String> lesPaths=cov.getLesGetCoveragePaths();
+        for (String path : lesPaths){
+            System.out.println(path);
+        }
+        System.out.println("nb de paths calculés : "+lesPaths.size());
     }
 }

@@ -1,8 +1,10 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.Iterator;
 import java.lang.Long;
 class CoverageID {
     private CoverageIDLabel coverageIDLabel;
@@ -41,7 +43,7 @@ class CoverageID {
 			trouv=trouv.replace(tagFinAxes,"");
 			trouv=trouv.replace("  "," ");
 			String[] lesAxesBruts = trouv.split(" ");
-			for (int i=1;i<=lesAxesBruts.length-2;i++){
+			for (int i=1;i<=lesAxesBruts.length-2;i++){  // on enlève les deux premiers (lat et lon)
 			    lesAxes.add(lesAxesBruts[i+1]);
 			}
 			System.out.println(lesAxes.size());
@@ -79,27 +81,24 @@ class CoverageID {
         return this.lesCoordonnees;
     }
     public ArrayList<String> getLesGetCoveragePaths(){ // cacul la liste des getCoveragePaths possible pour ce CoverageID
-        /*
-        if [ $nombreAxes -eq 1 ]
-        then
-            while read leCoeff
-            do
-                echo $leCoeff >> lesPaths
-            done < ${nomsAxes[0]}
-        else
-            while read leCoeff1
-            do
-                while read leCoeff2
-                do
-                    echo $leCoeff1$leCoeff2 >> lesPaths
-                done < ${nomsAxes[1]}
-            done < ${nomsAxes[0]}
-        fi
-        */   
         ArrayList<String> rep = new ArrayList<String>();
         int nbAxes=this.lesCoordonnees.size();  // nombre d'axes : 1 ou 2 pour MF : time et une height ou un pressure)
         System.out.println("nb d'axes : "+nbAxes);
         Set<String> lesNomsDesAxes=this.lesCoordonnees.keySet();
-        return rep;  // A terminer
+        Iterator iter=lesNomsDesAxes.iterator();
+        rep=new ArrayList(Arrays.asList(this.lesCoordonnees.get(iter.next())));
+        return(this.boucle(rep,iter));
     }
+    private ArrayList<String> boucle (ArrayList<String> list,Iterator iter){  // boucle récursive sur les axes
+            if (!iter.hasNext()) return (list);
+            ArrayList<String> newlist=new ArrayList<String>();
+            String[] prochain=this.lesCoordonnees.get(iter.next());
+            for (String str : list){
+                for(String strnew : prochain){
+                    newlist.add(str+strnew);
+                }
+            }
+            return(boucle(newlist,iter));
+     }
+    
 }
