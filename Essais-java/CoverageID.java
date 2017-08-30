@@ -81,7 +81,7 @@ class CoverageID {
     public HashMap<String,String[]> getLesCoordonnees(){
         return this.lesCoordonnees;
     }
-    public ArrayList<GetCoveragePath> getLesGetCoveragePaths(double latiNord,double latiSud,double longiOuest,double longiEst){ // cacul la liste des getCoveragePaths possible pour ce CoverageID
+    public ArrayList<GetCoveragePath> getLesGetCoveragePaths(double latiSud,double latiNord,double longiOuest,double longiEst){ // cacul la liste des getCoveragePaths possible pour ce CoverageID
         ArrayList<String> rep = new ArrayList<String>();
         int nbAxes=this.lesCoordonnees.size();  // nombre d'axes : 1 ou 2 pour MF : time et une height ou un pressure)
         System.out.println("nb d'axes : "+nbAxes);
@@ -95,7 +95,7 @@ class CoverageID {
         // &subset=lat(50.0,51.0)&subset=long(3.0,4.0)&subset=pressure(100)&subset=time(2017-08-29T15:00:00Z)
         DecimalFormat nf = new DecimalFormat() ;
         nf.setMaximumFractionDigits(3); // la tu auras au plus 3 chiffres apres la virgule
-        String latitude  = "&subset=lat("+nf.format(latiNord)+","+nf.format(latiSud)+")";
+        String latitude  = "&subset=lat("+nf.format(latiSud)+","+nf.format(latiNord)+")";
         String longitude = "&subset=long("+nf.format(longiOuest)+","+nf.format(longiEst)+")";
         String domaineGeo=latitude+longitude;
         String path="https://geoservices.meteofrance.fr/api/__BvvAzSbJXLEdUJ--rRU0E1F8qi6cSxDp5x5AtPfCcuU__/MF-NWP-HIGHRES-AROME-";
