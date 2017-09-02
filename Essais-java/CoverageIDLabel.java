@@ -54,4 +54,34 @@ class CoverageIDLabel{
         int index=this.coverageIDLabel.indexOf("___");
         return (this.coverageIDLabel.substring(index+23,coverageIDLabel.length()));
     }
+    public boolean aIgnorer(){
+        String label=this.coverageIDLabel;
+        if (label.contains("TURBULENT_KINETIC_ENERGY")) return true;
+        if (label.contains("GEOMETRIC_HEIGHT__")) return true;
+        if (label.contains("BRIGHTNESS_TEMPERATURE__GROUND_OR_WATER_SURFACE")) return true;
+        if (label.contains("SPECIFIC_CLOUD_ICE_WATER")) return true;
+        if (label.contains("SPECIFIC_RAIN_WATER_CONTENT__ISOBARIC_SURFACE")) return true;
+        if (label.contains("SPECIFIC_SNOW_WATER_CONTENT__")) return true;
+        if (label.contains("SHORT_WAVE_RADIATION_FLUX__GROUND_OR_WATER_SURFACE")) return true;
+        if (label.contains("RELATIVE_HUMIDITY__ISOBARIC_SURFACE___")) return true;
+        if (label.contains("LOW_CLOUD_COVER__GROUND")) return true;
+        if (label.contains("HIGH_CLOUD_COVER__GROUND")) return true;
+        if (label.contains("MEDIUM_CLOUD_COVER__GROUND")) return true;
+        if (label.contains("PRESSURE__SPECIFIC_HEIGHT_LEVEL_")) return true;
+        if (label.contains("PRESSURE__GROUND_OR_WATER")) return true;
+        if (label.contains("TOTAL_PRECIPITATION_RATE__SPECIFIC_HEIGHT")) return true;
+        if (label.contains("TOTAL_PRECIPITATION_RATE__ISOBARIC")) return true;
+        if (label.contains("ABSOLUTE_VORTICITY__ISOBARIC")) return true;
+        if (label.contains("TURBULENT_KINETIC_ENERGY__SPECIFIC_HEIGHT")) return true;
+        if (label.contains("TURBULENT_KINETIC_ENERGY__ISOBARIC")) return true;
+        if (label.contains("PSEUDO_ADIABATIC_POTENTIAL_TEMPERATURE__ISOBARIC")) return true;
+        if (label.contains("POTENTIAL_VORTICITY__ISOBARIC")) return true;
+        if (label.contains("TEMPERATURE__GROUND_OR_WATER_SURFACE")) return true;
+        if (label.contains("TEMPERATURE__ISOBARIC_SURFACE")) return true;
+        if (label.contains("U_COMPONENT_OF_WIND__ISOBARIC_")) return true;
+        if (label.contains("U_COMPONENT_OF_WIND__POTENTIAL_VORTICITY")) return true;
+        if (label.contains("V_COMPONENT_OF_WIND__ISOBARIC_SURFACE")) return true;
+        if (label.contains("V_COMPONENT_OF_WIND__POTENTIAL_VORTICITY")) return true;
+        return false;
+    }
 }

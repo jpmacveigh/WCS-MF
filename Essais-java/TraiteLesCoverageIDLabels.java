@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.concurrent.TimeUnit;
+import java.lang.Runtime;
 class TraiteLesCoverageIDLabels {
     public static void main (String[] arg) throws Exception {
         //String coverageIDLabel = "V_COMPONENT_OF_WIND__POTENTIAL_VORTICITY_SURFACE_2000___2017-08-25T12.00.00Z";
@@ -30,7 +31,7 @@ class TraiteLesCoverageIDLabels {
             double age=label.getAge();
             //System.out.println("mon age (heures) : "+age);
             //System.out.println("suis-je futur ? "+label.isFutur());
-            if (age<=8)  {  // on ne traite que les coverageIDLabel de moins de 6 heures d'age 
+            if ((age<=8)&&(!label.aIgnorer()))  {  // on ne traite que les certains coverageIDLabel de moins de 8 heures d'age 
                 nbLabelTraites=nbLabelTraites+1;
                 //long echeance=36000;
                 //System.out.println("echeance (sec) : "+echeance+" date prevision : "+label.getDateDeLaPrevision(echeance));
@@ -45,11 +46,19 @@ class TraiteLesCoverageIDLabels {
                     }
                 }
                 ArrayList<GetCoveragePath> lesPaths=cov.getLesGetCoveragePaths(50.,51.,3.,4.);
+                int nbPrevision=0;
                 for (GetCoveragePath path : lesPaths){
-                    System.out.println(path.getCoveragePath());
-                    System.out.println(path.estUnePrevision());
+                    if (path.estUnePrevision() ){  // on de traite que les prévision (date future)
+                        nbPrevision=nbPrevision+1;
+                        System.out.println(nbPrevision+" calcul des previsions avec :"+path.getCoveragePath());
+                        String commande = "../getEtAnalyseCoverage.sh "+path.getCoveragePath();
+                        Runtime.getRuntime().exec(commande);
+                        TimeUnit.MILLISECONDS.sleep(750);
+                        
+                    }
                 }
                 System.out.println("nb de paths calculés : "+lesPaths.size());
+                
                 TimeUnit.SECONDS.sleep(2);  // pour laisser le temps au serveur Inspire de MF de se retrouner
             }
         }

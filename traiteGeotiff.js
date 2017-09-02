@@ -28,17 +28,21 @@ function traiteGeotiff (path){
     var DOMParser = require('xmldom').DOMParser;
     var parser = new DOMParser();
     var xmlDoc = parser.parseFromString(gdalMetadata,"text/xml");
-    console.log("variable : ",xmlDoc.getElementsByTagName("Item")[0].childNodes[0].nodeValue);
+    var variable=xmlDoc.getElementsByTagName("Item")[0].childNodes[0].nodeValue;
+    console.log("variable : ",variable);
     console.log("échéance (sec) : ",xmlDoc.getElementsByTagName("Item")[2].childNodes[0].nodeValue);
-    console.log("date du run : ",xmlDoc.getElementsByTagName("Item")[3].childNodes[0].nodeValue);
+    var dateDuRun=xmlDoc.getElementsByTagName("Item")[3].childNodes[0].nodeValue;
+    console.log("date du run : ",dateDuRun);
     var timeInMili =parseInt(xmlDoc.getElementsByTagName("Item")[3].childNodes[0].nodeValue.substring(0,10),10)*1000;
     //console.log (timeInMili);
     console.log("date du run : ",new Date(timeInMili));
-    console.log("date prévision : ",xmlDoc.getElementsByTagName("Item")[6].childNodes[0].nodeValue);
+    var datePrevision=xmlDoc.getElementsByTagName("Item")[6].childNodes[0].nodeValue;
+    console.log("date prévision : ",datePrevision);
     timeInMili =parseInt(xmlDoc.getElementsByTagName("Item")[6].childNodes[0].nodeValue.substring(0,10),10)*1000;
     //console.log (timeInMili);
     console.log("date prévision : ",new Date(timeInMili));
-    console.log("description : ",xmlDoc.getElementsByTagName("Item")[7].childNodes[0].nodeValue);
+    var description=xmlDoc.getElementsByTagName("Item")[7].childNodes[0].nodeValue;
+    console.log("description : ",description);
    
     console.log("ModelTiepoint : ",this.image.getFileDirectory().ModelTiepoint);
     console.log("ModelTiepoint[4] : ",this.image.getFileDirectory().ModelTiepoint[4]);
@@ -53,8 +57,11 @@ function traiteGeotiff (path){
     //console.log("dernière valeur du raster rasters[0][rasters[0].length-1] : ",rasters[0][rasters[0].length-1]);
     console.log("premier point : ",getPoint(0,0));
     console.log("dernier point : ",getPoint(this.image.getWidth()-1,this.image.getHeight()-1));
+    var valeurPrevue=getPoint(6,36)["val"];
     console.log("point défini  : ",getPoint(6,36));  // point Lille (3.06,50.64) dans vigentte 0.01 degrès couvrant Longi(3,4) et Lati(50.51)
     //Affiche(image);
+    var chaine=variable+" "+description+" "+dateDuRun+" "+datePrevision+" "+valeurPrevue;
+    console.log (chaine);
     function getLongiLati(i,j){
       isValide(i,j);
       var longimin=this.image.getFileDirectory().ModelTiepoint[3];         // longitude minimale (bord Ouest)
