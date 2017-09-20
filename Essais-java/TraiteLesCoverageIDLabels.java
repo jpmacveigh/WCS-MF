@@ -9,8 +9,8 @@ class TraiteLesCoverageIDLabels {
         //String coverageIDLabel = "V_COMPONENT_OF_WIND__POTENTIAL_VORTICITY_SURFACE_2000___2017-08-25T12.00.00Z";
         //String coverageIDLabel="POTENTIAL_VORTICITY__ISOBARIC_SURFACE___2017-08-26T00.00.00Z";
         //String coverageIDLabel="MINIMUM_TEMPERATURE__SPECIFIC_HEIGHT_LEVEL_ABOVE_GROUND___2017-08-29T06.00.00Z";
-        String resolution = "0025";
-        resolution =arg[0];  // la résolution ("OO25 ou "001") est passée en premier argument
+        //String resolution = "0025";
+        String resolution =arg[0];  // la résolution ("OO25 ou "001") est passée en premier argument
         String fichDesCoverageIDlabel=arg[1];
         //getWCSCapabilities(resolution);
         BufferedReader br = new BufferedReader(new FileReader(fichDesCoverageIDlabel));
@@ -51,7 +51,7 @@ class TraiteLesCoverageIDLabels {
                     if (path.estUnePrevision() ){  // on de traite que les prévision (date future)
                         nbPrevision=nbPrevision+1;
                         System.out.println(nbPrevision+" calcul des previsions avec :"+path.getCoveragePath());
-                        String commande = "../getEtAnalyseCoverage.sh "+path.getCoveragePath();
+                        String commande = "../getEtAnalyseCoverage.sh "+path.getCoveragePath()+" "+path.getNomDeLaVariable();
                         Runtime.getRuntime().exec(commande);
                         TimeUnit.MILLISECONDS.sleep(750);
                         

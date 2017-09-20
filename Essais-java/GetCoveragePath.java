@@ -1,7 +1,7 @@
 import java.text.SimpleDateFormat;
 import java.text.FieldPosition;
 import java.util.Date;
-class GetCoveragePath{
+class GetCoveragePath{  // un path pour faire une requête getCoverage au WCS
     private String getCoveragePath;
     public GetCoveragePath (String getCoveragePath) {
         this.getCoveragePath=getCoveragePath;
@@ -28,6 +28,11 @@ class GetCoveragePath{
        long now=new Date().getTime();
        double delai=(this.getTSInMiliDateDeLaPrevision()-now)/1000./3600.;
        return (delai);
+    }
+    public String getNomDeLaVariable(){
+        int index=this.getCoveragePath.indexOf("coverageId=");
+        String rep=this.getCoveragePath.substring(index+11,index+30);
+        return rep;
     }
     public boolean estUnePrevision() throws Exception {
         if (this.getDelaiDeLaPrevision() >0) {
