@@ -53,7 +53,7 @@ class TraiteLesCoverageIDLabels {
                         System.out.println(nbPrevision+" calcul des previsions avec :"+path.getCoveragePath());
                         String commande = "../getEtAnalyseCoverage.sh "+path.getCoveragePath()+" "+path.getNomDeLaVariable();
                         Runtime.getRuntime().exec(commande);
-                        TimeUnit.MILLISECONDS.sleep(750);
+                        TimeUnit.MILLISECONDS.sleep(1000);
                         
                     }
                 }

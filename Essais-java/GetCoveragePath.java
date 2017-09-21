@@ -31,7 +31,7 @@ class GetCoveragePath{  // un path pour faire une requête getCoverage au WCS
     }
     public String getNomDeLaVariable(){
         int index=this.getCoveragePath.indexOf("coverageId=");
-        String rep=this.getCoveragePath.substring(index+11,index+30);
+        String rep=this.getCoveragePath.substring(index+11,index+40);
         return rep;
     }
     public boolean estUnePrevision() throws Exception {

@@ -60,7 +60,8 @@ class CoverageIDLabel{
         if (label.contains("GEOMETRIC_HEIGHT__")) return true;
         if (label.contains("BRIGHTNESS_TEMPERATURE__GROUND_OR_WATER_SURFACE")) return true;
         if (label.contains("SPECIFIC_CLOUD_ICE_WATER")) return true;
-        if (label.contains("SPECIFIC_RAIN_WATER_CONTENT__ISOBARIC_SURFACE")) return true;
+        if (label.contains("SPECIFIC_RAIN_WATER_CONTENT__ISOBARIC_SURFACE")) return true; 
+        if (label.contains("SPECIFIC_RAIN_WATER_CONTENT__SPECIFIC_HEIGHT_LEVEL")) return true;
         if (label.contains("SPECIFIC_SNOW_WATER_CONTENT__")) return true;
         if (label.contains("SHORT_WAVE_RADIATION_FLUX__GROUND_OR_WATER_SURFACE")) return true;
         if (label.contains("RELATIVE_HUMIDITY__ISOBARIC_SURFACE___")) return true;

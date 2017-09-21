@@ -11,7 +11,7 @@ bash /Essais-java/InterrogationWCSMF sh resol fichCoverageIDLabels
                         lancer commande = "../getEtAnalyseCoverage.sh "+path.getCoveragePath()+" "+path.getNomDeLaVariable()
                             curl $path > tifftempo  // requete "getCoverage"
                             node ../test_geotiff.js $nomDeLaVariable >> resultNode 2>>resultNode
-                        sleep (750 msec)
+                        sleep (1000 msec)
                     finsi
                 finboucle
                 sleep (2 sec)
