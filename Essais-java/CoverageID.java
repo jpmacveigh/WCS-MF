@@ -26,8 +26,9 @@ class CoverageID {
         path=path+this.coverageIDLabel.getCoverageIDLabel()+"&token=__BvvAzSbJXLEdUJ--rRU0E1F8qi6cSxDp5x5AtPfCcuU__"; 
         return (path); 
     }
-    private String getDescribedCoverage() throws Exception {  // emet une requette describeCoverage au WCS de MF pour ce CoverageID
-        String xml = GetUrl.get(this.getDescribeCoveragePath());
+    private String getDescribedCoverage() throws Exception  {  // emet une requette describeCoverage au WCS de MF pour ce CoverageID
+        String xml="";
+        xml = GetUrl.get(this.getDescribeCoveragePath());
         return (xml);
     }
     private void construireLesAxes() throws Exception {  // analyse le describedCoverage reçu
@@ -120,5 +121,4 @@ class CoverageID {
             }
             return(boucle(newlist,iter));
      }
-    
 }
