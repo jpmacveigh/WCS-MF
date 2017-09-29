@@ -1,20 +1,39 @@
 import java.io.IOException;
 import java.net.URL;
 import java.io.BufferedReader;
-import java.net.URLConnection;
+//import java.net.URLConnection;
+import java.net.HttpURLConnection;
 import java.io.InputStreamReader;
+import java.lang.StackTraceElement;
+import java.util.concurrent.TimeUnit;
+import java.lang.InterruptedException;
 class GetUrl{
-    public static String get(String url) throws IOException{
-    String source ="";
-    URL oracle = new URL(url);
-    URLConnection yc = oracle.openConnection();
-    BufferedReader in = new BufferedReader(
-    new InputStreamReader(
-    yc.getInputStream()));
-    String inputLine;
-    while ((inputLine = in.readLine()) != null)
-    source +=inputLine;
-    in.close();
-    return source;
+    public static Object[] get(String url) throws IOException,InterruptedException {
+        Object[] rep=  new Object[2];
+        String source ="";
+        int codeRetourHTTP=503;
+        BufferedReader in=null;
+        HttpURLConnection con=null;
+        URL ur = new URL(url);
+        //URLConnection con = ur.openConnection();
+        while (codeRetourHTTP==503){
+            con =(HttpURLConnection) ur.openConnection();
+            codeRetourHTTP = con.getResponseCode();
+            System.out.println("retour con : "+codeRetourHTTP);
+            if (codeRetourHTTP==503) TimeUnit.SECONDS.sleep(1);
+        }
+        try{
+            in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) source +=inputLine;
+        }
+        catch (IOException e){
+            codeRetourHTTP = con.getResponseCode();
+            System.out.println ("retour HTTP : "+codeRetourHTTP);
+        }
+        //in.close();
+        rep[0]=source;
+        rep[1]=codeRetourHTTP;
+        return rep;
     }
 }

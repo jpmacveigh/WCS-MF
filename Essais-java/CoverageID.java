@@ -26,9 +26,13 @@ class CoverageID {
         path=path+this.coverageIDLabel.getCoverageIDLabel()+"&token=__BvvAzSbJXLEdUJ--rRU0E1F8qi6cSxDp5x5AtPfCcuU__"; 
         return (path); 
     }
-    private String getDescribedCoverage() throws Exception  {  // emet une requette describeCoverage au WCS de MF pour ce CoverageID
+    private String getDescribedCoverage() throws Exception {  // emet une requette describeCoverage au WCS de MF pour ce CoverageID
         String xml="";
-        xml = GetUrl.get(this.getDescribeCoveragePath());
+        Object[] retour=new Object[2];
+        retour = GetUrl.get(this.getDescribeCoveragePath());
+        xml=(String)retour[0];
+        int codeHttp=(int)retour[1];
+        System.out.println ("code retour Http getDescribeCoverage : "+codeHttp);
         return (xml);
     }
     private void construireLesAxes() throws Exception {  // analyse le describedCoverage reçu
@@ -39,7 +43,7 @@ class CoverageID {
 		Matcher m = p.matcher(xml);
 		ArrayList<String> lesAxes=new ArrayList<String>();
 		while(m.find()) {
-			System.out.println("\nrecherche nom des axes : "+m.group());
+			//System.out.println("\nrecherche nom des axes : "+m.group());
 			String trouv=m.group();
 			trouv=trouv.replace(tagAxes,"");
 			trouv=trouv.replace(tagFinAxes,"");
@@ -59,7 +63,7 @@ class CoverageID {
 		m = p.matcher(xml);
 		int rang=0;
 		while(m.find()) {
-			System.out.println("\nrecherche coef : "+m.group());
+			//System.out.println("\nrecherche coef : "+m.group());
 			String trouv=m.group();
 			trouv=trouv.replace(tagCoeff,"");
 			trouv=trouv.replace(tagFinCoeff,"");
@@ -67,7 +71,7 @@ class CoverageID {
 			System.out.println(lesCoeff.length);
 			for (int i=0;i<=lesCoeff.length-1;i++){
 	            String coeff=lesCoeff[i];
-	            System.out.println(coeff); 
+	            //System.out.println(coeff); 
 	            if (lesAxes.get(rang).equals("time")) { // pour l'axe "time", calculer la date de la prevision
 	               long echeance= Long.parseLong(coeff);
 	               coeff=this.coverageIDLabel.getDateDeLaPrevision(echeance);

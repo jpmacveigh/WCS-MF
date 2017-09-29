@@ -58,11 +58,11 @@ class TraiteLesCoverageIDLabels {
                     }
                 }
                 System.out.println("nb de paths calculés : "+lesPaths.size());
-                
-                TimeUnit.SECONDS.sleep(2);  // pour laisser le temps au serveur Inspire de MF de se retrouner
+                //TimeUnit.SECONDS.sleep(1);  // pour laisser le temps au serveur Inspire de MF de se retrouner
             }
         }
     }
+    /*
     static private String getWCSCapabilities(String resolution) throws Exception {
         String path="https://geoservices.meteofrance.fr/services/MF-NWP-HIGHRES-AROME-";
         path=path+resolution+"-FRANCE-WCS?request=GetCapabilities&version=1.3.0&service=WCS&token=__BvvAzSbJXLEdUJ--rRU0E1F8qi6cSxDp5x5AtPfCcuU__";
@@ -70,6 +70,7 @@ class TraiteLesCoverageIDLabels {
         String resultGetWCSCapabilities=GetUrl.get(path);  // requete getCapabilities au WCS de MF pour le modèle AROME
         return resultGetWCSCapabilities;
     }
+    */
     static void lireLesCapabilities() throws Exception {
         BufferedReader br = new BufferedReader(new FileReader("../WCScapabilities"));
         String line;
