@@ -16,11 +16,11 @@ class GetUrl{
         HttpURLConnection con=null;
         URL ur = new URL(url);
         //URLConnection con = ur.openConnection();
-        while (codeRetourHTTP==503){
+        while (codeRetourHTTP==503){  // boucle après attente d'une seconde quand serveur renvoi code 503 (serveur pas prêt)
             con =(HttpURLConnection) ur.openConnection();
             codeRetourHTTP = con.getResponseCode();
             System.out.println("retour con : "+codeRetourHTTP);
-            if (codeRetourHTTP==503) TimeUnit.SECONDS.sleep(1);
+            if (codeRetourHTTP==503) TimeUnit.SECONDS.sleep(1);  // attendre une seconde avant de boucler
         }
         try{
             in = new BufferedReader(new InputStreamReader(con.getInputStream()));

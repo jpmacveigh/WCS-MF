@@ -13,10 +13,10 @@ class CoverageID {
     private String describedCoverage;
     private HashMap <String,String[]> lesCoordonnees=new HashMap<String,String[]>();
     private ArrayList<String> lesPathsPourGetCoverage =new ArrayList<String>();
-    public CoverageID(CoverageIDLabel coverageIDLabel,String resolution) throws Exception{
+    public CoverageID(CoverageIDLabel coverageIDLabel,String resolution) throws Exception { // constructeur
         this.coverageIDLabel=coverageIDLabel;
         this.resolution=resolution;
-        this.describedCoverage=this.getDescribedCoverage();
+        this.describedCoverage=this.getDescribedCoverage();  // requete "describecoverage" au WCS
         this.construireLesAxes();
     }
     

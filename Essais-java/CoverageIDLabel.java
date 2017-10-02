@@ -58,7 +58,6 @@ class CoverageIDLabel{
         String label=this.coverageIDLabel;
         if (label.contains("TURBULENT_KINETIC_ENERGY")) return true;
         if (label.contains("GEOMETRIC_HEIGHT__")) return true;
-        if (label.contains("BRIGHTNESS_TEMPERATURE__GROUND_OR_WATER_SURFACE")) return true;
         if (label.contains("SPECIFIC_CLOUD_ICE_WATER")) return true;
         if (label.contains("SPECIFIC_RAIN_WATER_CONTENT__ISOBARIC_SURFACE")) return true; 
         if (label.contains("SPECIFIC_RAIN_WATER_CONTENT__SPECIFIC_HEIGHT_LEVEL")) return true;
@@ -83,6 +82,7 @@ class CoverageIDLabel{
         if (label.contains("U_COMPONENT_OF_WIND__POTENTIAL_VORTICITY")) return true;
         if (label.contains("V_COMPONENT_OF_WIND__ISOBARIC_SURFACE")) return true;
         if (label.contains("V_COMPONENT_OF_WIND__POTENTIAL_VORTICITY")) return true;
+        if (label.contains("GEOPOTENTIAL__ISOBARIC_SURFACE___")) return true;
         return false;
     }
 }
