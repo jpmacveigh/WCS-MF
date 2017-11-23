@@ -1,6 +1,7 @@
 import java.text.SimpleDateFormat;
 import java.text.FieldPosition;
 import java.util.Date;
+import java.util.TimeZone;
 class CoverageIDLabel{
     private String coverageIDLabel;
     public CoverageIDLabel (String coverageIDLabel){
@@ -17,7 +18,7 @@ class CoverageIDLabel{
         rep=rep.replace(".",":");
         return rep;
     }
-    public Date getDate() throws Exception {
+    public Date getDate() throws Exception {  // date en UTC
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
         Date rep = sdf.parse(this.getStringDate());
         return rep;
@@ -34,7 +35,10 @@ class CoverageIDLabel{
         return (strb.toString());
     }
     public double getAge() throws Exception {  // calcul l'age en heure
-       long now=new Date().getTime();
+       long now=new Date().getTime(); // l'heure locale du serveur
+       // il faut la transformer en UTC :
+       int decal=TimeZone.getDefault().getOffset(now);  // calcul du décalage par rapport à UTC
+       now=now-decal; // calcul de l'heure actuelle UTC
        double age=(now-this.getTSInMiliDate())/1000./3600.;
        return (age);
     }

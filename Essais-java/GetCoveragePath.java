@@ -1,6 +1,7 @@
 import java.text.SimpleDateFormat;
 import java.text.FieldPosition;
 import java.util.Date;
+import java.util.TimeZone;
 class GetCoveragePath{  // un path pour faire une requête getCoverage au WCS
     private String getCoveragePath;
     public GetCoveragePath (String getCoveragePath) {
@@ -25,7 +26,9 @@ class GetCoveragePath{  // un path pour faire une requête getCoverage au WCS
         return (this.getDateDeLaPrevision().getTime());
     }
     public double getDelaiDeLaPrevision() throws Exception {  // calcul l'age en heure
-       long now=new Date().getTime();
+       long now=new Date().getTime();  // cette heure est celle du serveur qui n'est pas forcement l'heure UTC !
+       int decal=TimeZone.getDefault().getOffset(now);  // calcul du décalage par rapport à UTC
+       now=now-decal; // calcul de l'heure actuelle UTC
        double delai=(this.getTSInMiliDateDeLaPrevision()-now)/1000./3600.;
        return (delai);
     }

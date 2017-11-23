@@ -1,0 +1,11 @@
+Utilisation de psql:
+    psql Employees
+    SELECT firstname, lastname FROM emps ORDER BY lastname, firs
+
+
+
+
+
+installer Postgre pour Node.js :
+     npm install pg
+     

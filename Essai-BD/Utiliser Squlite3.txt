@@ -1,0 +1,13 @@
+Installer sqilte3 pour Node.js
+    npm install sqlite3
+puis dans le fichier Essai_sqlite.js :
+
+    const sqlite3 = require('sqlite3').verbose();
+    var nomDB="Arome.sqlite"   // le suffixe est ce que l'on veut
+    var db = new sqlite3.Database(nomDB,(err) => {  // le fichier est créé si il n'existe pas
+      if (err) {
+        console.error(err.message);
+      }
+      console.log('Connected to ',nomDB,' database.');
+    });
+puis : node Essai_sqlite.js

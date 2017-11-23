@@ -1,6 +1,6 @@
 *** Traitement du WCS de Météo-France  ***   
 
-bash /Essais-java/InterrogationWCSMF sh resol fichCoverageIDLabels
+bash /Essais-java/InterrogationWCSMF.sh resol fichCoverageIDLabels
     bash ../fabriquelesCoverageIDLabels $resol $fichCoverageIDLabels  // requete "getCapabilities"
     java TraiteLesCoveragesIDLabels.java $resol $fichCoverageIDLabels
         boucle sur les Labels

@@ -1,15 +1,9 @@
-variable :  v-component of wind [m/s]
-abbréviation :  VGRD
-date du run :  Mon Oct 02 2017 15:00:00 GMT+0000 (UTC)
-date prévision :  Mon Oct 02 2017 22:00:00 GMT+0000 (UTC)
-description :  3000[m] HTGL (Specified height level above ground)
-ModelTiepoint :  Float64Array { '0': 0, '1': 0, '2': 0, '3': 3, '4': 51, '5': 0 }
-ModelTiepoint[4] :  51
-première valeur du raster rasters[0][0]:  -5.6623992919921875
-dernière valeur du raster rasters[0][rasters[0].length-1] :  3.2829132080078125
-incrément de longitude :  0.025
-décrément de latitude  :  0.025
-premier point :  { longi: 3, lati: 51, val: -5.6623992919921875 }
-dernier point :  { longi: 4, lati: 50, val: 3.2829132080078125 }
-point défini  :  { longi: 3.15, lati: 50.1, val: 7.3297882080078125 }
-{"now":"Mon Oct 02 2017 20:17:18 GMT+0000 (UTC)","nom":"V_COMPONENT_OF_WIND__SPECIFIC","abrev":"VGRD","descr":"3000[m] HTGL (Specified height level above ground)","run":"2017-10-02T15:00:00.000Z","date":"2017-10-02T22:00:00.000Z","val":"7.33"}
+/home/ubuntu/workspace/node_modules/geotiff/dist/geotiff.js:30
+    throw new TypeError("Invalid byte order value.");
+    ^
+
+TypeError: Invalid byte order value.
+    at Object.GeoTIFF (/home/ubuntu/workspace/node_modules/geotiff/dist/geotiff.js:30:11)
+    at Object.parse (/home/ubuntu/workspace/node_modules/geotiff/dist/main.js:25:10)
+    at /home/ubuntu/workspace/node_modules/traiteGeotiff.js:10:25
+    at FSReqWrap.readFileAfterClose [as oncomplete] (fs.js:380:3)

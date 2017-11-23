@@ -7,12 +7,17 @@
   "author": "Mostafa Eweda <mo.eweda@gmail.com>",
   "dependencies": {
     "async": "~0.2.8",
+    "byline": "^5.0.0",
     "express": "~3.2.4",
     "geotiff": "^0.4.1",
     "jquery": "^3.2.1",
     "jsdom": "^11.1.0",
+    "mongodb": "^2.2.33",
+    "mysql": "^2.15.0",
+    "pg": "^7.4.0",
     "simple-get": "^2.6.0",
     "socket.io": "~0.9.14",
+    "sqlite3": "^3.1.13",
     "xmldom": "^0.1.27"
   }
 }

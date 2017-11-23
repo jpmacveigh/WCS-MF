@@ -12,12 +12,20 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+  <a name="haut"/>
+	<p><a href="#bas">bas de la page</a></p>
+  <?php
+    exec('cat resultPrevi | wc -l',$nblignes);
+    echo '<h1>le fichier resultPrevi contient '.$nblignes[0].' lignes</h1>';
+  ?>
   <?php  // lecture de la première ligne du fichier des prévisions
       $fichier = fopen('resultPrevi','r');
+      echo $nombre_ligne_fichier;
       $ligne = fgets($fichier);
       fclose($fichier);
       $previ=json_decode($ligne,true);
   ?>
+  <div id=nombreLignes></div>
   <div class="container">
     <h2>Prévisions</h2>
     <table class="table table-condensed">
@@ -50,5 +58,7 @@
       </tbody>
     </table>
   </div>
+  <a name="bas"/>
+	<p><a href="#haut">haut de la page</a></p>
 </body>
 </html>
