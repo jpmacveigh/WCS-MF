@@ -17,26 +17,29 @@
   <?php
     exec('cat resultPrevi | wc -l',$nblignes);
     echo '<h1>le fichier resultPrevi contient '.$nblignes[0].' lignes</h1>';
-  ?>
-  <?php
-     echo "<h2>Traitements SQLITE</h2>";
-    /**
-     * Simple example of extending the SQLite3 class and changing the __construct
-     * parameters, then using the open method to initialize the DB.
-     */
-    class MyDB extends SQLite3 {
-        function __construct()
-        {
-            $this->open('Arome.sqlite');
-        }
+    include("MyDB.php");
+    include("AfficheTableauAssociatif.php");
+    echo "<h2>Traitements SQLITE</h2>";
+    date_default_timezone_set('UTC');
+    echo 'Version PHP courante : ' . phpversion()."<br>".date("r")."<br>";
+    $db = new MyDB('Arome.sqlite');
+    $result= $db->query('SELECT count(*) FROM prevision');
+    $taillePrevision=$result->fetchArray()[0];
+    echo '<h1>la table "prevision" de la base "Arome.sqlite" contient '.$taillePrevision.' lignes</h1>';
+    $rows=$db->selectArray("select now,nom,val from prevision");
+    $i=0;
+    echo "Première: ".$rows[$i]["now"]." ".$rows[$i]["nom"]." ".$rows[$i]["val"]."<br>";
+    $i=sizeof($rows)-1;
+    echo "Dernière: ".$rows[$i]["now"]." ".$rows[$i]["nom"]." ".$rows[$i]["val"]."<br>";
+    $rows=$db->selectArray("select nom,niv,count(*),min(date),max(date)  from prevision group by nom,niv order by nom");
+    AfficheTableauAssociatif("Liste des noms des variable et de leurs niveaux",$rows);
+    for ($i=0;$i<sizeof($rows);$i++){
+      $qstr ='select nom,now,run,date,val from prevision where nom="'.$rows[$i]["nom"].'" and niv="'.$rows[$i]["niv"].'" order by date';
+      echo $qstr; 
+      $series=$db->selectArray($qstr);
+      AfficheTableauAssociatif('Serie temporelle de : '.$rows[$i]["nom"].' '.$rows[$i]["niv"],$series);
     }
-    $db = new MyDB();
-    $result = $db->query('SELECT now,val FROM prevision');
-    while ($row = $result->fetchArray()) {
-      echo $row["now"]." ".$row["val"]."<br>";
-    }
-  ?>
-  <?php  // lecture de la première ligne du fichier des prévisions
+    // lecture de la première ligne du fichier des prévisions
       $fichier = fopen('resultPrevi','r');
       echo $nombre_ligne_fichier;
       $ligne = fgets($fichier);

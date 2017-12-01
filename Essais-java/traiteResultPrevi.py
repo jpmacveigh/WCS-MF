@@ -9,6 +9,6 @@ resultPrevi = open("resultPrevi", "r")
 for line in resultPrevi.readlines():
     previ=json.loads(line)
     cur.execute("INSERT INTO prevision (now,nom,abrev,niv,unit,run,date,val) VALUES(?,?,?,?,?,?,?,?)",[previ["now"],previ["nom"],previ["abrev"],previ["niv"],previ["unit"], previ["run"],previ["date"],previ["val"]])
-    con.commit()
+con.commit()
 con.close()
 resultPrevi.close()

@@ -73,7 +73,8 @@ exports.traiteGeotiff=function(path,nomDeLaVariable){
     var prevu2chiffres=parseFloat(valeurPrevue).toFixed(2);
     console.log("point défini  : ",getPoint(6,36));  // point Lille (3.06,50.64) dans vigentte 0.01 degrès couvrant Longi(3,4) et Lati(50.51)    //Affiche(image);
     var chaine=variable+" "+abbrev+"  "+description+" "+dateDuRun+" "+datePrevision+" "+valeurPrevue;
-    var DateUTCString=new Date().toUTCString();
+    //var DateUTCString=new Date().toUTCString();
+    var DateUTCString=new Date().toISOString();
     var previ=
     {
       "now": DateUTCString,
