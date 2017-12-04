@@ -1,7 +1,7 @@
   var path="MF-NWP-HIGHRES-AROME-001-FRANCE-WCS___T__HEIGHT___2017-06-14T03-00-00Z (1).tiff";
   path="tifftempo";
   var nomDeLaVariable=process.argv[2];
-  require('traiteGeotiff').traiteGeotiff(path,nomDeLaVariable);
+  require('./traiteGeotiff').traiteGeotiff(path,nomDeLaVariable);
   /*
   var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
   var xhr = new XMLHttpRequest();

@@ -51,7 +51,7 @@ class TraiteLesCoverageIDLabels {
                     if (path.estUnePrevision() ){  // on de traite que les prévision (date future)
                         nbPrevision=nbPrevision+1;
                         System.out.println(nbPrevision+" calcul des previsions avec :"+path.getCoveragePath());
-                        String commande = "../getEtAnalyseCoverage.sh "+path.getCoveragePath()+" "+path.getNomDeLaVariable();
+                        String commande = "./getEtAnalyseCoverage.sh "+path.getCoveragePath()+" "+path.getNomDeLaVariable();
                         Runtime.getRuntime().exec(commande);
                         TimeUnit.MILLISECONDS.sleep(500);
                         

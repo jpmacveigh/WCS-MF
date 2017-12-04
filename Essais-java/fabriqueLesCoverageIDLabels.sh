@@ -6,7 +6,7 @@
 #
 date  # affichage de la date du début des traitements
 resol=$1         # le premier paramètre d'appel du script est la résolution du modèle Arome : 001 ou 0025
-fichresultat=$2  # le second est le nom du fichier où seront écrit le coverageIDLabel
+fichresultat=$2  # le second est le nom du fichier où seront écrit leverageIDLabel
 path="https://geoservices.meteofrance.fr/services/MF-NWP-HIGHRES-AROME-"
 path=$path$resol"-FRANCE-WCS?request=GetCapabilities&version=1.3.0&service=WCS&token=__BvvAzSbJXLEdUJ--rRU0E1F8qi6cSxDp5x5AtPfCcuU__"
 #curl "https://geoservices.meteofrance.fr/services/MF-NWP-HIGHRES-AROME-001-FRANCE-WCS?request=GetCapabilities&version=1.3.0&service=WCS&token=__BvvAzSbJXLEdUJ--rRU0E1F8qi6cSxDp5x5AtPfCcuU__" > resultGetCapabilities
