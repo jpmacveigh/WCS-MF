@@ -1,4 +1,5 @@
 date
+pkill -9 node
 tail -10000 resultPrevi > tempo
 cat tempo > resultPrevi
 rm tempo
