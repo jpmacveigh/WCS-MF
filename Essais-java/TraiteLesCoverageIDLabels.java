@@ -28,6 +28,7 @@ class TraiteLesCoverageIDLabels {
             //System.out.println("ma date : "+label.getStringDate());
             //System.out.println("mon suffixe : "+label.getSuffixe());
             //System.out.println("mon TS en milisecondes : "+label.getTSInMiliDate());
+            if (label.getCumul()!= null) System.out.println("mon cumul : "+label.getCumul());
             double age=label.getAge();
             //System.out.println("mon age (heures) : "+age);
             //System.out.println("suis-je futur ? "+label.isFutur());

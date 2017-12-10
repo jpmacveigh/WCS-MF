@@ -58,6 +58,16 @@ class CoverageIDLabel{
         int index=this.coverageIDLabel.indexOf("___");
         return (this.coverageIDLabel.substring(index+23,coverageIDLabel.length()));
     }
+    public boolean isCumul(){
+        int index=this.coverageIDLabel.indexOf("Z_P");
+        if (index<0) return false;
+        return true;
+    }
+    public String getCumul(){
+        int index=this.coverageIDLabel.indexOf("Z_P");
+        if (index<0) return null;
+        return (this.coverageIDLabel.substring(index+3,coverageIDLabel.length()));
+    }
     public boolean aIgnorer(){
         String label=this.coverageIDLabel;
         if (label.contains("TURBULENT_KINETIC_ENERGY")) return true;
