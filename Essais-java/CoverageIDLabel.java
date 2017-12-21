@@ -56,7 +56,7 @@ class CoverageIDLabel{
     }
     public String getSuffixe(){
         int index=this.coverageIDLabel.indexOf("___");
-        return (this.coverageIDLabel.substring(index+23,coverageIDLabel.length()));
+        return (this.coverageIDLabel.substring(index+23,this.coverageIDLabel.length()));
     }
     public boolean isCumul(){
         int index=this.coverageIDLabel.indexOf("Z_P");
@@ -66,10 +66,23 @@ class CoverageIDLabel{
     public String getCumul(){
         int index=this.coverageIDLabel.indexOf("Z_P");
         if (index<0) return null;
-        return (this.coverageIDLabel.substring(index+3,coverageIDLabel.length()));
+        return (this.coverageIDLabel.substring(index+3,this.coverageIDLabel.length()));
     }
-    public boolean aIgnorer(){
+    public boolean aIgnorer(){  // sélectionne les coverageIDLabel à ignorer
         String label=this.coverageIDLabel;
+        //System.out.println("isCumul: "+this.isCumul());
+        //System.out.println("cumul: "+this.getCumul());
+
+        if (this.isCumul()){    // cas des cumuls
+            //System.out.println("on teste cumul sur 1 heure");
+            if (this.getCumul().equals(new String("T1H"))) { // on traite les cumuls sur 1 heure 
+                //System.out.println("on traite les cumuls sur 1 heure");
+                return false;
+            }
+            else {
+                return true;   // tous les autres cumuls seront ignorés
+            }
+        }
         if (label.contains("TURBULENT_KINETIC_ENERGY")) return true;
         if (label.contains("GEOMETRIC_HEIGHT__")) return true;
         if (label.contains("SPECIFIC_CLOUD_ICE_WATER")) return true;
