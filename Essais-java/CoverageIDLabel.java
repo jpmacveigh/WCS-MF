@@ -94,6 +94,7 @@ class CoverageIDLabel{
         if (label.contains("LOW_CLOUD_COVER__GROUND")) return true;
         if (label.contains("HIGH_CLOUD_COVER__GROUND")) return true;
         if (label.contains("MEDIUM_CLOUD_COVER__GROUND")) return true;
+        if (label.contains("CONVECTIVE_CLOUD_COVER__GROUND")) return true;
         if (label.contains("PRESSURE__SPECIFIC_HEIGHT_LEVEL_")) return true;
         if (label.contains("PRESSURE__GROUND_OR_WATER")) return true;
         if (label.contains("TOTAL_PRECIPITATION_RATE__SPECIFIC_HEIGHT")) return true;
