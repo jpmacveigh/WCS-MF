@@ -2,7 +2,20 @@
 <html lang="en">
 <head>
   <style>
-    #corps_tableau { font-size: 0.7em;}
+    #corps_tableau { 
+      font-size: 0.7em;
+    }
+    html, body {
+        width: 100%;
+        height: 100%;
+        margin:  0;
+        padding: 0;
+    }
+    .trace_courbe {
+       width:  500px;
+       height: 500px;
+       margin: auto;
+    }
   </style>
   <title>Prévisions</title>
   <meta charset="utf-8">
@@ -10,6 +23,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdn.anychart.com/releases/8.1.0/js/anychart-base.min.js" type="text/javascript"></script>
+  <script src='plot_points.js' type="text/javascript"></script>
 </head>
 <body>
   <a name="haut"/>
@@ -33,12 +48,27 @@
     echo "Dernière: ".$rows[$i]["now"]." ".$rows[$i]["nom"]." ".$rows[$i]["val"]."<br>";
     $rows=$db->selectArray("select nom,niv,count(*),min(date),max(date)  from prevision group by nom,niv order by nom");
     AfficheTableauAssociatif("Liste des noms des variable et de leurs niveaux",$rows);
-    for ($i=0;$i<sizeof($rows);$i++){
+    for ($i=0;$i<sizeof($rows);$i++){// boucle sur les variables et leurs niveaux
       $qstr ='select nom,now,run,date,val from prevision where nom="'.$rows[$i]["nom"].'" and niv="'.$rows[$i]["niv"].'" order by date';
       echo $qstr; 
-      $series=$db->selectArray($qstr);
+      $series=$db->selectArray($qstr);  // extraction de la série temporelle
       AfficheTableauAssociatif('Serie temporelle de : '.$rows[$i]["nom"].' '.$rows[$i]["niv"],$series);
+      echo '<div id="courbe'.$i.'" class="trace_courbe">';  // emplacement où l'on va tracer 
+      echo 'ici sera la courbe N°: '.$i.'</div>';
+      echo '<script> 
+        var x='.$i.';
+        console.log("x: ",x);</script>';
+      echo '<script>
+        var data=[';
+      for ($j=0;$j<sizeof($series);$j++){
+        echo'{x:'.$j.',value:'.$series[$j]["val"].'},';
+      }
+      echo ']</script>';
+      echo '<script>
+        plot_points(data,"courbe'.$i.'","'.$rows[$i]["nom"].' '.$rows[$i]["niv"].'");
+      </script><br>';
     }
+  
     // lecture de la première ligne du fichier des prévisions
       $fichier = fopen('resultPrevi','r');
       echo $nombre_ligne_fichier;
