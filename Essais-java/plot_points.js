@@ -3,6 +3,7 @@ function plot_points(data,container,titre){
     	// create a chart
       	var chart = anychart.scatter();
         // create a line series and set the data
+      	chart.labels(true);
       	chart.line(data);
         // enable major grids
         chart.xGrid(true);
@@ -14,6 +15,7 @@ function plot_points(data,container,titre){
       	chart.title(titre);
       	// set the container id
       	chart.container(container);
+      	
       	// initiate drawing the chart
       	chart.draw();
     });

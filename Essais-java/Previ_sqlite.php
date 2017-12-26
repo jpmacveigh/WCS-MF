@@ -12,7 +12,7 @@
         padding: 0;
     }
     .trace_courbe {
-       width:  500px;
+       width:  85%;
        height: 500px;
        margin: auto;
     }
@@ -24,12 +24,14 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="https://cdn.anychart.com/releases/8.1.0/js/anychart-base.min.js" type="text/javascript"></script>
-  <script src='plot_points.js' type="text/javascript"></script>
+  
 </head>
 <body>
+  <script src='plot_points.js' type="text/javascript"></script>
   <a name="haut"/>
 	<p><a href="#bas">bas de la page</a></p>
   <?php
+    include "chaineDateAromeToTimestamp.php";
     exec('cat resultPrevi | wc -l',$nblignes);
     echo '<h1>le fichier resultPrevi contient '.$nblignes[0].' lignes</h1>';
     include("MyDB.php");
@@ -61,7 +63,9 @@
       echo '<script>
         var data=[';
       for ($j=0;$j<sizeof($series);$j++){
-        echo'{x:'.$j.',value:'.$series[$j]["val"].'},';
+        //echo'{x:'.$j.',value:'.$series[$j]["val"].'},';
+        echo'{x:'.chaineDateAromeToTimestamp($series[$j]["date"]).',value:'.$series[$j]["val"].'},';
+        
       }
       echo ']</script>';
       echo '<script>
@@ -111,5 +115,6 @@
   </div>
   <a name="bas"/>
 	<p><a href="#haut">haut de la page</a></p>
+
 </body>
 </html>

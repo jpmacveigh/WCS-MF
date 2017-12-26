@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Scat</title>
     <script src="https://cdn.anychart.com/releases/8.1.0/js/anychart-base.min.js" type="text/javascript"></script>
-    <script src='plot_points.js' type="text/javascript"></script>
+    
     <style>
     html, body {
         width: 100%;
@@ -13,7 +13,7 @@
         padding: 0;
     }
     #container {
-       width:  500px;
+       width:  85%;
        height: 500px;
        margin: auto;
     }
@@ -21,10 +21,11 @@
 </head>
 <body>
     <div id="container"></div>
+    <script src='plot_points.js' type="text/javascript"></script>
     <script>
     var data=[];
-    for (var i=0;i<=100;i++){
-        data[i]={x:i*4*Math.PI/100,value:Math.sin(i*4*Math.PI/100)/(i+1)};
+    for (var i=0;i<=10;i++){
+        data[i]={x:i*4*Math.PI/10,value:Math.sin(i*4*Math.PI/10)/(i+1)};
     }
     plot_points(data,"container","sinus(x)/(x+1)");
     </script>
