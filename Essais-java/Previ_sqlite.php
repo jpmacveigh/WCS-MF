@@ -27,7 +27,7 @@
   
 </head>
 <body>
-  <script src='plot_points.js' type="text/javascript"></script>
+  <script src="plot_points.js" type="text/javascript"></script>
   <a name="haut"/>
 	<p><a href="#bas">bas de la page</a></p>
   <?php
@@ -69,7 +69,10 @@
       }
       echo ']</script>';
       echo '<script>
-        plot_points(data,"courbe'.$i.'","'.$rows[$i]["nom"].' '.$rows[$i]["niv"].'");
+        var transformxAxisLabel= function (ts){
+          return new Date(ts*1000).toISOString();
+        };
+        plot_points(data,"courbe'.$i.'","'.$rows[$i]["nom"].' '.$rows[$i]["niv"].'",transformxAxisLabel);
       </script><br>';
     }
   
