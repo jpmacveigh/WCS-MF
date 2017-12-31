@@ -4,24 +4,24 @@
 *****************************************************************
 *********************   xlmDoc ******************
 *************************************************
-variable :  v-component of wind [m/s]
-abbréviation :  VGRD
-échéance (sec) :  151200
+variable :  u-component of wind [m/s]
+abbréviation :  UGRD
+échéance (sec) :  68400
 unit :  [m/s]
-date du run :  Thu Dec 21 2017 12:00:00 GMT+0000 (UTC)
-date prévision :  Sat Dec 23 2017 06:00:00 GMT+0000 (UTC)
-description :  3000[m] HTGL (Specified height level above ground)
-niveau :  3000[m]
+date du run :  Sun Dec 31 2017 03:00:00 GMT+0000 (UTC)
+date prévision :  Sun Dec 31 2017 22:00:00 GMT+0000 (UTC)
+description :  35[m] HTGL (Specified height level above ground)
+niveau :  35[m]
 ModelTiepoint :  Float64Array { '0': 0, '1': 0, '2': 0, '3': 3, '4': 51, '5': 0 }
 ModelTiepoint[4] :  51
 ************************** getGeoKey ***************************************
 **********************************************************************
-première valeur du raster rasters[0][0]:  -8.070266723632812
-dernière valeur du raster rasters[0][rasters[0].length-1] :  -8.720169067382812
+première valeur du raster rasters[0][0]:  8.663984298706055
+dernière valeur du raster rasters[0][rasters[0].length-1] :  12.412031173706055
 incrément de longitude :  0.025
 décrément de latitude  :  0.025
-premier point :  { longi: 3, lati: 51, val: -8.070266723632812 }
-dernier point :  { longi: 4, lati: 50, val: -8.720169067382812 }
+premier point :  { longi: 3, lati: 51, val: 8.663984298706055 }
+dernier point :  { longi: 4, lati: 50, val: 12.412031173706055 }
 point à extraire:  { iNear: 2, jNear: 15, distMini: 1447.6495316920757 }
-point à extraire:  { longi: 3.05, lati: 50.625, val: -7.8017120361328125 }
-{"now":"2017-12-21T18:30:11.382Z","nom":"V_COMPONENT_OF_WIND__SPECIFIC","abrev":"VGRD","niv":"3000[m]","unit":"[m/s]","run":"2017-12-21T12:00:00.000Z","longi":3.05,"lati":50.625,"date":"2017-12-23T06:00:00.000Z","val":"-7.80"}
+point à extraire:  { longi: 3.05, lati: 50.625, val: 8.695234298706055 }
+{"now":"2017-12-31T09:06:41.187Z","nom":"U_COMPONENT_OF_WIND__SPECIFIC","abrev":"UGRD","niv":"35[m]","unit":"[m/s]","run":"2017-12-31T03:00:00.000Z","longi":3.05,"lati":50.625,"date":"2017-12-31T22:00:00.000Z","val":"8.70"}
