@@ -33,6 +33,7 @@ function plot_points_previ(data,container,titre,transxAxisLabel){
         vMarker.to(Date.now()+60*60*12*1000);
         vMarker.axis(chart.xAxis());
         vMarker.fill("#d7fcda");
+        vMarker.zIndex(10);
         // enable major grids
         chart.xGrid(true);
         chart.yGrid(true);

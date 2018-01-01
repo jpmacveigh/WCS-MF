@@ -17,7 +17,7 @@
        margin: auto;
     }
   </style>
-  <title>Prévisions</title>
+  <title>Prévisions V2</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -32,11 +32,11 @@
 	<p><a href="#bas">bas de la page</a></p>
   <?php
     include "chaineDateAromeToTimestamp.php";
+    include("AfficheTableauAssociatifAvecBouton.php");
     exec('cat resultPrevi | wc -l',$nblignes);
     echo '<h1>le fichier resultPrevi contient '.$nblignes[0].' lignes</h1>';
     include("MyDB.php");
-    include("AfficheTableauAssociatif.php");
-    include("dessine_serie.php");
+    
     echo "<h2>Traitements SQLITE</h2>";
     date_default_timezone_set('UTC');
     echo 'Version PHP courante : ' . phpversion()."<br>".date("r")."<br>";
@@ -50,50 +50,12 @@
     $i=sizeof($rows)-1;
     echo "Dernière: ".$rows[$i]["now"]." ".$rows[$i]["nom"]." ".$rows[$i]["val"]."<br>";
     $rows=$db->selectArray("select nom,niv,count(*),min(date),max(date)  from prevision group by nom,niv order by nom");
-    AfficheTableauAssociatif("Liste des noms des variable et de leurs niveaux",$rows);
-    for ($i=0;$i<sizeof($rows);$i++){// boucle sur les variables et leurs niveaux
-      dessine_serie($db,$rows,$i);    // tracé de la série temporelle
-    }
-    // lecture de la première ligne du fichier des prévisions
-      $fichier = fopen('resultPrevi','r');
-      echo $nombre_ligne_fichier;
-      $ligne = fgets($fichier);
-      fclose($fichier);
-      $previ=json_decode($ligne,true);
+  ?>  
+  <form name="choix-serie" method="post" action="trace_serie.php" target="_blank">
+  <?php
+    AfficheTableauAssociatifAvecBouton("Liste des noms des variable et de leurs niveaux",$rows);
   ?>
-  <div id=nombreLignes></div>
-  <div class="container">
-    <h2>Prévisions</h2>
-    <table class="table table-condensed">
-      <thead>
-        <tr>
-         <th>n</th>    
-         <?php
-         foreach ($previ as $cle => $valeur){  // ecriture des entêtes des colonnes
-          echo "<th>".$cle."</th>";
-         }
-         ?>
-        </tr>
-      </thead>
-      <tbody id="corps_tableau">
-        <?php
-          $fichier = fopen('resultPrevi','r');
-          $n=0;
-          while (($ligne = fgets($fichier))!==false){
-            $n=$n+1;
-            $previ=json_decode($ligne,true);
-            echo "<tr>";
-              echo "<td>".$n."</td>";     // le numéro de la prévision dans la première 
-              foreach ($previ as $cle => $valeur){  // écriture du contenu de chaque colonne
-                echo "<td>".$valeur."</td>";
-              }
-            echo "</tr>";
-          }
-          fclose($fichier);
-        ?>
-      </tbody>
-    </table>
-  </div>
+  </form>
   <a name="bas"/>
 	<p><a href="#haut">haut de la page</a></p>
 </body>

@@ -1,4 +1,4 @@
-function plot(data,container,titre,transxAxisLabel){
+function plot_points(data,container,titre,transxAxisLabel){
     // Tracé d'un nuage de points reliés par une ligne
     // data : tableau [x:,valeur:] contenant les données à tracer
     // container : nom de la div de la page appelante où va s'afficher le tracé
@@ -30,6 +30,7 @@ function plot(data,container,titre,transxAxisLabel){
         vMarker.to(8);
         vMarker.axis(chart.xAxis());
         vMarker.fill("#d7fcda");
+        vMarker.zIndex(10);
         // enable major grids
         chart.xGrid(true);
         chart.yGrid(true);

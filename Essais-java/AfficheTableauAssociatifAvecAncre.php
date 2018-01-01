@@ -1,5 +1,5 @@
 <?php
-    function AfficheTableauAssociatif ($titre,$tab){
+    function AfficheTableauAssociatifAvecAncre ($titre,$tab){
         echo '<div class="container">';
         echo '<h2>'.$titre.'</h2>
             <table class="table table-condensed">
@@ -13,9 +13,12 @@
               echo '<tbody id="corps_tableau">';
               for ($i=0; $i<sizeof($tab);$i++){ 
                 echo "<tr>";
+                $label="";
                 foreach ($tab[$i] as $cle => $valeur){  // écriture du contenu de chaque colonne
-                    echo '<td>'.$valeur.'</td>';
+                    $label=$label.$tab[$i][$cle]."   ";
                 }
+                echo '<input type="hidden" name="atracer" value="'.var_dump($tab[$i]).'"/>';
+                echo '<input type="submit" name="valider" value="'.$label.'"/>';
                 echo "</tr>";
               }
               echo '</tbody>

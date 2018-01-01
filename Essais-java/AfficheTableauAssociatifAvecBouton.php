@@ -1,5 +1,5 @@
 <?php
-    function AfficheTableauAssociatif ($titre,$tab){
+    function AfficheTableauAssociatifAvecBouton ($titre,$tab){
         echo '<div class="container">';
         echo '<h2>'.$titre.'</h2>
             <table class="table table-condensed">
@@ -16,10 +16,11 @@
                 foreach ($tab[$i] as $cle => $valeur){  // écriture du contenu de chaque colonne
                     echo '<td>'.$valeur.'</td>';
                 }
-                echo "</tr>";
+                echo  '<td><input type="submit" name="valider" value="'.$i.'"></input></td></tr>';
               }
               echo '</tbody>
             </table>
           </div>';
     }
 ?>
+</form>
