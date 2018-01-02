@@ -1,4 +1,5 @@
 <?php
+    session_start();
     function AfficheTableauAssociatifAvecBouton ($titre,$tab){
         echo '<div class="container">';
         echo '<h2>'.$titre.'</h2>

@@ -1,3 +1,4 @@
+<?php session_start() ?>;
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,6 +34,7 @@
   <?php
     include "chaineDateAromeToTimestamp.php";
     include("AfficheTableauAssociatifAvecBouton.php");
+    
     exec('cat resultPrevi | wc -l',$nblignes);
     echo '<h1>le fichier resultPrevi contient '.$nblignes[0].' lignes</h1>';
     include("MyDB.php");
@@ -49,7 +51,9 @@
     echo "Première: ".$rows[$i]["now"]." ".$rows[$i]["nom"]." ".$rows[$i]["val"]."<br>";
     $i=sizeof($rows)-1;
     echo "Dernière: ".$rows[$i]["now"]." ".$rows[$i]["nom"]." ".$rows[$i]["val"]."<br>";
-    $rows=$db->selectArray("select nom,niv,count(*),min(date),max(date)  from prevision group by nom,niv order by nom");
+    $rows=$db->selectArray("select nom,niv,count(*),min(date),max(date)
+    from prevision group by nom,niv order by nom");
+    $_SESSION ["rows"]=$rows;
   ?>  
   <form name="choix-serie" method="post" action="trace_serie.php" target="_blank">
   <?php
