@@ -1,4 +1,4 @@
-<?php session_start() ?>;
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,7 +55,7 @@
     from prevision group by nom,niv order by nom");
     $_SESSION ["rows"]=$rows;
   ?>  
-  <form name="choix-serie" method="post" action="trace_serie.php" target="_blank">
+  <form name="choix-serie" method="post" action="dessine_serie_2.php" target="_blank">
   <?php
     AfficheTableauAssociatifAvecBouton("Liste des noms des variable et de leurs niveaux",$rows);
   ?>
