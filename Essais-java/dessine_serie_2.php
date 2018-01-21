@@ -14,7 +14,7 @@
     }
     .trace_courbe {
        width:  85%;
-       height: 500px;
+       height: 700px;
        margin: auto;
     }
   </style>

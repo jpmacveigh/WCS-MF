@@ -10,11 +10,15 @@ function plot_points_previ(data,container,titre,transxAxisLabel){
         // create a line series and set the data
         chart.line(data);
         chart.crosshair(true);
+        // set the text of the y-label
+        chart.crosshair().xLabel().format(function (){
+            return transxAxisLabel(this.value);
+        });
       	chart.labels(true);
       	chart.labels().fontColor("#ff0000");  // labels de la courbe en rouge
       	chart.labels().fontSize(10);   // taille des labels de la courbe
       	chart.xScale().ticks().interval(3600*3); // interval entre deux labels sur axe des X
-      	chart.xAxis().title("Date et eure (UTC)");  // affichage du titre du tracé
+      	chart.xAxis().title("Date et heure (UTC)");  // affichage du titre du tracé
       	chart.xAxis().labels(true);
       	chart.xAxis().labels().rotation(-90);
       	chart.xAxis().staggerMode(true);
