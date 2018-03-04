@@ -32,7 +32,7 @@ class TraiteLesCoverageIDLabels {
             double age=label.getAge();
             //System.out.println("mon age (heures) : "+age);
             //System.out.println("suis-je futur ? "+label.isFutur());
-            System.out.println("A ignorer : "+label.aIgnorer());
+            //System.out.println("A ignorer : "+label.aIgnorer());
             if ((age<=8)&&(!label.aIgnorer()))  {  // on ne traite que les certains coverageIDLabel de moins de 8 heures d'age 
                 nbLabelTraites=nbLabelTraites+1;
                 //long echeance=36000;
