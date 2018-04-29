@@ -54,7 +54,9 @@
   echo ']</script>';
   echo '<script>
     var transformxAxisLabel= function (ts){
-      return new Date(ts*1000).toISOString();
+      var jour=["dim","lun","mar","mer","jeu","ven","sam"];
+      var d=new Date(ts*1000);
+      return jour[d.getUTCDay()]+" "+(d.toISOString());
     };
     plot_points_previ(data,"courbe'.$i.'","'.$rows[$i]["nom"].' '.$rows[$i]["niv"].'",transformxAxisLabel);
   </script><br>';
