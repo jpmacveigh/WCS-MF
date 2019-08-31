@@ -1,2 +1,0 @@
-POur pouvoir utiliser Sqlite avec PHP :
-sudo apt-get install php5-sqlite

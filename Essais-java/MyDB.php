@@ -1,5 +1,5 @@
 <?php
-class MyDB extends SQLite3{  // Une BD Sqlite3
+class MyDB extends SQLite3 {  // Une BD Sqlite3
       function __construct($bdName){   // constructeur de la classe
           $this->open($bdName);
       }

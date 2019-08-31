@@ -7,7 +7,7 @@
 <body>
     <?php
         echo phpversion()."<br>";
-        echo "heure locale :"."<br>";
+        echo "heure locale du serveur :"."<br>";
         echo date("c :  U")."<br>";
         $ts=date("U");
         echo $ts."<br>";

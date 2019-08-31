@@ -34,13 +34,14 @@ exports.traiteGeotiff=function(path,nomDeLaVariable){
     console.log("abbréviation : ",abbrev);
     var echeance_sec=parseInt(xmlDoc.getElementsByTagName("Item")[2].childNodes[0].nodeValue); 
     console.log("échéance (sec) : ",echeance_sec);
-    var short_name=xmlDoc.getElementsByTagName("Item")[4].childNodes[0].nodeValue;
+    console.log (xmlDoc.getElementsByTagName("Item").length);
+    //var short_name=xmlDoc.getElementsByTagName("Item")[4].childNodes[0].nodeValue;
     var unit=xmlDoc.getElementsByTagName("Item")[5].childNodes[0].nodeValue;
     console.log ("unit : ",unit);
-    var dateDuRun=xmlDoc.getElementsByTagName("Item")[3].childNodes[0].nodeValue;
+    //var dateDuRun=xmlDoc.getElementsByTagName("Item")[3].childNodes[0].nodeValue;
     //console.log("date du run : ",dateDuRun);
     var timeInMili =parseInt(xmlDoc.getElementsByTagName("Item")[3].childNodes[0].nodeValue.substring(0,10),10)*1000;
-    //console.log (timeInMili);
+    console.log (timeInMili);
     dateDuRun=new Date(timeInMili);
     console.log("date du run : ",new Date(timeInMili));
     var datePrevision=xmlDoc.getElementsByTagName("Item")[6].childNodes[0].nodeValue;

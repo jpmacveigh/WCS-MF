@@ -4,8 +4,10 @@ function plot_points_previ(data,container,titre,transxAxisLabel){
     // container : nom de la div de la page appelante où va s'afficher le tracé
     // titre : titre du tracé
     // transxAxisLabel : fonction de conversion (x) de l'affichage des labels de l'axe des x
+    
     anychart.onDocumentReady(function () {
     	// create a chart
+    	  //console.log(data);
       	var chart = anychart.scatter();
         // create a line series and set the data
         chart.line(data);
@@ -14,9 +16,13 @@ function plot_points_previ(data,container,titre,transxAxisLabel){
         chart.crosshair().xLabel().format(function (){
             return transxAxisLabel(this.value);
         });
-      	chart.labels(true);
+      	chart.labels(true);  // il y aura des labels sur la courbe
       	chart.labels().fontColor("#ff0000");  // labels de la courbe en rouge
       	chart.labels().fontSize(10);   // taille des labels de la courbe
+      	//chart.labels().format("{decimalsCount:2}");  // ne marche pas ! A revoir
+      	chart.labels().format(function(){
+      	    return Number.parseFloat(this.value).toFixed(2);  // ne marche pas non plus
+      	});
       	chart.xScale().ticks().interval(3600*3); // interval entre deux labels sur axe des X
       	chart.xAxis().title("Date et heure (UTC)");  // affichage du titre du tracé
       	chart.xAxis().labels(true);

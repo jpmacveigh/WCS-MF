@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <meta charset="utf-8">
+        <!-- Nous chargeons les fichiers CDN de Leaflet. Le CSS AVANT le JS -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+            crossorigin="" />
+        <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
+            crossorigin=""></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<title>Proximité du métro</title>
+		<style type="text/css">
+			#map { /* la carte DOIT avoir une hauteur sinon elle n'apparaît pas */
+				height:600px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="map"></div>  <!-- Ici s'affichera la carte -->
+	</body>
+	<script type="text/javascript" src="leaflet-heat.js"></script>
+	<script type="text/javascript" src="metro.js" ></script> <!-- chargement des coordonnées des stations du métro de Lille --> 
+	<script type="text/javascript">
+		var macarte = null;
+		var latlng=[];
+		function initMap() {  // Fonction d'initialisation de la carte
+		    macarte=L.map('map').setView([50.635472,3.055083],13);  // Créer l'objet "macarte" et l'insèrer dans l'élément HTML qui a l'ID "map"
+           	L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {  // Leaflet ne récupère pas les cartes (tiles) sur un serveur par défaut. Nous devons lui préciser où nous souhaitons les récupérer. Ici, openstreetmap.fr
+            	attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',  // Il est toujours bien de laisser le lien vers la source des données
+            	minZoom: 1,
+            	maxZoom: 20
+        	}).addTo(macarte);
+            for (var i=0;i<stations.length;i++){  // boucle sur les stations du métro
+        		latlng[i]=[stations[i][2],stations[i][3]];
+        		//console.log (latlng[i]);
+        		var popup=stations[i][1];
+        		popup=popup+"<br>lat : "+latlng[i][0].toFixed(6)+" lng :"+latlng[i][1].toFixed(6);
+            	var marker = L.marker(latlng[i]).addTo(macarte)  // Ajour d'un marker à l'emplacement de chaque station
+            	.bindPopup(popup);
+    		}
+    		macarte.on('click', onMapClick);
+    		L.control.scale().addTo(macarte);
+    		var couche=[];
+    		for(var lat=50.6;lat<=50.7;lat=lat+.001){
+    			for (var lng=3.00;lng<=3.16;lng=lng+.001){
+    				var dist=laPlusProche(lat,lng);
+    				couche.push([lat,lng,dist["dist"]]);
+    			}
+    		}
+    		console.log(couche);
+    		/*
+    		L.heatLayer(couche,{
+    			radius: 25,
+    			max:60,
+    			//gradient: {0.1: 'blue', 0.2: "pink",0.6: 'lime', 0.8: 'red'},
+    			//	blur:1
+    			
+    		}).addTo(macarte);  */
+    		drawPavage(50.6,50.8,2.96,3.16,0.001,150.);
+         }
+		window.onload = function(){
+			initMap(); // Fonction d'initialisation qui s'exécute lorsque le DOM est chargé
+			console.log (distances(50.635472,3.055083));
+			console.log (laPlusProche(50.635472,3.055083));
+		};
+		
+		function distances(lat,lng){  // calcul toutes des distances des stations par rapport à une position (lat,lng)
+			var res=[];
+			for (var i=0;i<stations.length;i++){
+				res[i]={"dist":macarte.distance([lat,lng],[stations[i][2],stations[i][3]]),"station":stations[i][1]};
+			}
+			return res;
+		}
+		function laPlusProche(lat,lng){  // calcul la distance de la station la plus proche d'une position (lat,lng)
+			var dist=distances(lat,lng);
+			var dmin=Number.MAX_VALUE;
+			var res=null;
+			for (var i=0;i<dist.length;i++) {
+				//console.log (dist[i]["dist"],dmin);
+				if (dist[i]["dist"]<=dmin) {
+					//console.log (dist[i]["dist"],dmin);
+					dmin=dist[i]["dist"];
+					res=dist[i];
+				}
+			}
+			return res;
+		}
+		function onMapClick(e) {    // si on clique sur la carte
+			console.log (e.latlng);
+		    var lat=e.latlng["lat"];
+		    var lng=e.latlng["lng"];
+		    console.log (lat,lng);
+		    var station=laPlusProche(lat,lng);
+		    var text="La plus proche: "+station["station"];
+		    text=text+"<br>distance: "+station["dist"].toFixed(0)+" m";
+		    var popup = L.popup();
+		    popup
+		        .setLatLng(e.latlng)
+		        .setContent(text)
+		        .openOn(macarte);
+		}
+		function drawRect(lat,lng,size,color="#ff7800"){  // tracé d'un rectangle centré en (lat,lng)
+			var bounds = [[lat-size/2.,lng-size/2.], [lat+size/2,lng+size/2.]];
+			L.rectangle(bounds, {color:color,weight: 0,fillOpacity:0.7}).addTo(macarte); // create an orange rectangle
+		}
+		function drawPavage(latMin,latMax,lngMin,lngMax,size,seuil){  // tracè d'un pavage de rectangles
+			for (var lat=latMin;lat<=latMax;lat=lat+size){
+				for (var lng=lngMin;lng<=lngMax;lng=lng+size){
+					var dist=laPlusProche(lat,lng)["dist"];
+					if (dist>=seuil){
+						drawRect(lat,lng,size,color(dist,seuil,1000.));		
+					}
+				}
+			}
+		}
+		function color(dist,seuil,max){
+		  var palette=[
+		  "#ccffff",
+	 	  "#c2f2fc",
+	 	  "#b8e6fa",
+	 	  "#add9f7",
+	 	  "#a3ccf5",
+	 	  "#99bff2",
+	 	  "#8fb2f0",
+	 	  "#85a6ed",
+	 	  "#7a99eb",
+	 	  "#708ce8",
+	 	  "#6680e6",
+	 	  "#5c73e3",
+	 	  "#5266e0",
+	 	  "#4759de",
+	 	  "#3d4ddb",
+	 	  "#3340d9",
+	 	  "#2933d6",
+	 	  "#1f26d4",
+	 	  "#1419d1",
+	 	  "#0a0dcf",
+		  "#0000cc"];
+		 
+		  if (dist<=seuil) return palette[0];
+		  if (dist>=max) return palette[palette.length-1];
+		  var index=1.*(dist-seuil)/(max-seuil)*(palette.length-1);
+		  return palette[Math.round(index)];
+		}
+	</script>
+</html>

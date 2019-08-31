@@ -1,0 +1,31 @@
+- ouverture de la base Arome.sqlite :
+
+ubuntu@ip-172-31-42-195:~/environment/node_jpmv/Essais-java$ sqlite3 Arome.sqlite 
+SQLite version 3.22.0 2018-01-22 18:45:57
+Enter ".help" for usage hints.
+
+- structure de la bases de données Arome.sqlite qui contient les prévisions Arome un point :
+
+
+sqlite> .schema
+CREATE TABLE prevision (now text,nom text,abrev text,niv text,unit text,run text,date text,val text);
+
+now         heure de d'extraction de la prévision des bases de MF
+nom         nom de la variable prévue
+abrev       petit nom de la variable prévue
+niv         niveau vertical
+unit        unité de la variable prévue
+run         heure du run de la prévision
+date        heure pour laquelle la variable est prévue
+val         valeur prévue par Arome
+
+- nombre d'nregistremants de la table prevision :
+sqlite> select count(*) from prevision;
+17807
+
+- liste des enregistrements de la table prevision :
+sqlite> select * from prevision;
+
+qui donne une liste telle que :
+
+2018-04-29T10:47:38.018Z|V_COMPONENT_OF_WIND__SPECIFIC|VGRD|3000[m]|[m/s]|2018-04-29T03:00:00.000Z|2018-05-01T00:00:00.000Z|-3.63

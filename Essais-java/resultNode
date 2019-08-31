@@ -1,27 +1,11 @@
-************************* getFileDirectory *********************************
-***************************************************************************
-***********************  GDAL_METADATA  ***********************
-*****************************************************************
-*********************   xlmDoc ******************
-*************************************************
-variable :  Pressure reduced to MSL [Pa]
-abbréviation :  PRMSL
-échéance (sec) :  151200
-unit :  [Pa]
-date du run :  Sat Apr 14 2018 18:00:00 GMT+0000 (UTC)
-date prévision :  Mon Apr 16 2018 12:00:00 GMT+0000 (UTC)
-description :  0[-] MSL (Mean sea level)
-niveau :  0[-]
-ModelTiepoint :  Float64Array { '0': 0, '1': 0, '2': 0, '3': 3, '4': 51, '5': 0 }
-ModelTiepoint[4] :  51
-************************** getGeoKey ***************************************
-**********************************************************************
-première valeur du raster rasters[0][0]:  101648.78125
-dernière valeur du raster rasters[0][rasters[0].length-1] :  101762.375
-incrément de longitude :  0.025
-décrément de latitude  :  0.025
-premier point :  { longi: 3, lati: 51, val: 101648.78125 }
-dernier point :  { longi: 4, lati: 50, val: 101762.375 }
-point à extraire:  { iNear: 2, jNear: 15, distMini: 1447.6495316920757 }
-point à extraire:  { longi: 3.05, lati: 50.625, val: 101678.5625 }
-{"now":"2018-04-15T01:32:01.833Z","nom":"PRESSURE__MEAN_SEA_LEVEL___20","abrev":"PRMSL","niv":"0[-]","unit":"[Pa]","run":"2018-04-14T18:00:00.000Z","longi":3.05,"lati":50.625,"date":"2018-04-16T12:00:00.000Z","val":"101678.56"}
+/home/ubuntu/environment/node_jpmv/node_modules/geotiff/dist/dataview64.js:51
+      return this._dataView.getUint16(offset, littleEndian);
+                            ^
+
+RangeError: Offset is outside the bounds of the DataView
+    at DataView.getUint16 (native)
+    at DataView64.getUint16 (/home/ubuntu/environment/node_jpmv/node_modules/geotiff/dist/dataview64.js:51:29)
+    at Object.GeoTIFF (/home/ubuntu/environment/node_jpmv/node_modules/geotiff/dist/geotiff.js:24:27)
+    at Object.parse (/home/ubuntu/environment/node_jpmv/node_modules/geotiff/dist/main.js:25:10)
+    at /home/ubuntu/environment/node_jpmv/Essais-java/traiteGeotiff.js:10:25
+    at FSReqWrap.readFileAfterClose [as oncomplete] (fs.js:447:3)

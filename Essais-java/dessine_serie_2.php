@@ -29,6 +29,8 @@
 <body>
   <script src="plot_points_previ.js" type="text/javascript"></script>
 <?php
+  ini_set('display_errors',1);
+  error_reporting(E_ALL) ;
   include("MyDB.php");
   include("AfficheTableauAssociatif.php");
   include("chaineDateAromeToTimestamp.php");
@@ -36,10 +38,11 @@
   echo "la serie a tracer est la numero: ".$i."<br>";
   $rows=$_SESSION ['rows'];
   $db = new MyDB('Arome.sqlite');
-  $qstr ='select nom,now,run,date,val from prevision where nom="'.$rows[$i]["nom"].'" and niv="'.$rows[$i]["niv"].'" order by date';
+  $qstr ='select nom,now,run,date,val from prevision where nom="'.$rows[$i]["nom"].'" and niv="'.$rows[$i]["niv"].'" and hauteur="'.$rows[$i]["hauteur"].'" order by date';
   echo $qstr; 
   $series=$db->selectArray($qstr);  // extraction de la série temporelle
-  AfficheTableauAssociatif('Serie temporelle de : '.$rows[$i]["nom"].' '.$rows[$i]["niv"],$series);
+  //var_dump($series);
+  AfficheTableauAssociatif('Serie temporelle de : '.$rows[$i]["nom"].' '.$rows[$i]["niv"].' '.$rows[$i]["hauteur"],$series);
   echo '<div id="courbe'.$i.'" class="trace_courbe">';  // emplacement où l'on va tracer 
   echo 'ici sera la courbe N°: '.$i.'</div>';
   echo '<script> 
@@ -51,15 +54,20 @@
     //echo'{x:'.$j.',value:'.$series[$j]["val"].'},';
     echo'{x:'.chaineDateAromeToTimestamp($series[$j]["date"]).',value:'.$series[$j]["val"].'},';
   }
-  echo ']</script>';
+  
+  echo '];console.log(data);</script>';
+  
+?>
+<?php  
   echo '<script>
     var transformxAxisLabel= function (ts){
       var jour=["dim","lun","mar","mer","jeu","ven","sam"];
       var d=new Date(ts*1000);
       return jour[d.getUTCDay()]+" "+(d.toISOString());
     };
-    plot_points_previ(data,"courbe'.$i.'","'.$rows[$i]["nom"].' '.$rows[$i]["niv"].'",transformxAxisLabel);
+    plot_points_previ(data,"courbe'.$i.'","'.$rows[$i]["nom"].' '.$rows[$i]["niv"].' '.$rows[$i]["hauteur"].'",transformxAxisLabel);
   </script><br>';
+  flush();
 ?>
 </body>
 </html>

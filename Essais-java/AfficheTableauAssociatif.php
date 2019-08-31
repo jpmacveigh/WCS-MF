@@ -21,5 +21,6 @@
               echo '</tbody>
             </table>
           </div>';
+          flush();
     }
 ?>
