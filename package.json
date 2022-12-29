@@ -9,7 +9,7 @@
     "async": "~0.2.8",
     "byline": "^5.0.0",
     "express": "~3.2.4",
-    "geotiff": "^0.4.1",
+    "geotiff": "^2.0.7",
     "jquery": "^3.2.1",
     "jsdom": "^11.1.0",
     "mongodb": "^2.2.33",
